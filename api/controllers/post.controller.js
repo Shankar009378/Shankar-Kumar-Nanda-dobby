@@ -5,7 +5,7 @@ export const create = async (req, res, next) => {
   if (!req.user.isAdmin) {
     return next(errorHandler(403, 'You are not allowed to create a post'));
   }
-  if (!req.body.title || !req.body.content) {
+  if (!req.body.title) {
     return next(errorHandler(400, 'Please provide all required fields'));
   }
   const slug = req.body.title
@@ -39,7 +39,7 @@ export const getposts = async (req, res, next) => {
       ...(req.query.searchTerm && {
         $or: [
           { title: { $regex: req.query.searchTerm, $options: 'i' } },
-          { content: { $regex: req.query.searchTerm, $options: 'i' } },
+          // { content: { $regex: req.query.searchTerm, $options: 'i' } },
         ],
       }),
     })
@@ -66,6 +66,7 @@ export const getposts = async (req, res, next) => {
       totalPosts,
       lastMonthPosts,
     });
+    console.log(posts);
   } catch (error) {
     next(error);
   }
@@ -93,7 +94,6 @@ export const updatepost = async (req, res, next) => {
       {
         $set: {
           title: req.body.title,
-          content: req.body.content,
           category: req.body.category,
           image: req.body.image,
         },

@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import CallToAction from '../components/CallToAction';
 import { useEffect, useState } from 'react';
 import PostCard from '../components/PostCard';
 
@@ -11,6 +10,7 @@ export default function Home() {
       const res = await fetch('/api/post/getPosts');
       const data = await res.json();
       setPosts(data.posts);
+      console.log(data.posts);
     };
     fetchPosts();
   }, []);
@@ -18,25 +18,22 @@ export default function Home() {
   return (
     <div>
       <div className='flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto '>
-        <h1 className='text-3xl font-bold lg:text-6xl'>Welcome to My Blog</h1>
-        <p className='text-gray-500 text-xs sm:text-sm'>
-          Explore🚀 a diverse collection of articles and tutorials💡delving into the world of Full-Stack Development.🌐💻 From frontend frameworks to backend technologies🛠️, Join🤝 me on this coding adventure covering Web Development, Software Engineering, and Programming Languages.🌟👨‍💻
+        <h1 className='text-3xl font-bold lg:text-6xl'>Welcome to the Project Task</h1>
+        <p className='text-red-500 text-xs sm:text-sm'>
+          NOTE:- If you want to upload Image then Please sign in or sign up to continue.🚀👩‍💻And then go to your Profile Icon on the NavBar and click on profile to Upload a Image.
         </p>
         <Link
           to='/search'
           className='text-xs sm:text-sm text-teal-500 font-bold hover:underline'
         >
-          Dive into the Archives
+          Dive into the Images
         </Link>
-      </div>
-      <div className='p-3 bg-amber-100 dark:bg-slate-700'>
-        <CallToAction />
       </div>
 
       <div className='max-w-6xl mx-auto p-3 flex flex-col gap-8 py-7'>
         {posts && posts.length > 0 && (
           <div className='flex flex-col gap-6'>
-            <h2 className='text-2xl font-semibold text-center'>Recent Posts</h2>
+            <h2 className='text-2xl font-semibold text-center'>Recent Images</h2>
             <div className='flex flex-wrap gap-4'>
               {posts.map((post) => (
                 <PostCard key={post._id} post={post} />
@@ -46,7 +43,7 @@ export default function Home() {
               to={'/search'}
               className='text-lg text-teal-500 hover:underline text-center'
             >
-              Explore More Posts
+              Explore More Images
             </Link>
           </div>
         )}
